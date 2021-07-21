@@ -1,0 +1,5 @@
+channels:
+  - conda-forge
+dependencies:
+  - cudatoolkit=11.2
+  - openmm-torch

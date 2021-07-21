@@ -1,2 +1,2 @@
-# openmm-torch_parallel_bug
-Reproducable example highlighting an issue with parallelization of openmm-torch models.
+# openmm-torch_loading_bug
+Reproducable example highlighting an issue occuring when models are loaded with openmm-torch.
