@@ -24,7 +24,7 @@ class ParallelModel(torch.nn.Module):
         futures0 = torch.jit.fork(self.l0, flattened_float_positions.to(self.device0))
         futures1 = torch.jit.fork(self.l1, flattened_float_positions.to(self.device1))
 
-        energy = torch.jit.wait(futures0) + torch.jit.wait(futures1)
+        energy = torch.jit.wait(futures0) + torch.jit.wait(futures1).to("cuda:0")
         return energy
 
 class DoubleModel(torch.nn.Module):
@@ -93,7 +93,7 @@ def positions_from_pdb(pdb):
     Return a tensor with the positions
     """
     positions = np.asarray(pdb.positions.value_in_unit(nanometers))
-    positions = torch.tensor(positions).cuda()
+    positions = torch.tensor(positions).to(torch.double).cuda()
     positions.requires_grad_(True)
     positions.retain_grad()
     return positions
