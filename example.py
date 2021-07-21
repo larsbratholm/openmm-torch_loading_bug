@@ -66,6 +66,7 @@ def run_model_loaded_jit(model, pdb):
     positions = positions_from_pdb(pdb)
     jit_model = torch.jit.script(model)
     jit_model.save("model.pt")
+    del jit_model
     loaded_jit_model = torch.jit.load("model.pt")
     loaded_jit_model(positions)
     print("Succesfully ran loaded model with jit")
@@ -119,6 +120,6 @@ if __name__ == "__main__":
     single_gpu_model = ParallelModel("cuda:0", "cuda:0")
     print("Starting single gpu test")
     run_models(single_gpu_model, pdb)
-    #multi_gpu_model = ParallelModel("cuda:0", "cuda:1")
+    multi_gpu_model = ParallelModel("cuda:0", "cuda:1")
     print("Starting multi gpu test")
-    #run_models(multi_gpu_model, pdb)
+    run_models(multi_gpu_model, pdb)
